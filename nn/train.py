@@ -1,7 +1,9 @@
 ##### SETTINGS #####
 training_data_path = r"C:\Users\timh\Downloads\tah\chess-ai\training.jsonl" # path to the .jsonl file that contains the training data
-training_set_batch_size = 100
+training_set_batch_size = 500
 model_output_directory = r"C:\Users\timh\Downloads\tah\chess-ai\models" # path to the parent directory you want the models to be dumped into when they are saved
+
+example_cap:int = 5000 # if you want to limit the number of examples the model trains on, enter it here. Set it to "None" (null) if you want it to go through all of the data in the training file
 ####################
 
 import tensorflow as tf
@@ -56,9 +58,10 @@ f.seek(0) # go back to the start of the file again
 input_sets = []
 output_sets = []
 eof = False
+stop = False
 on_model_number:int = 1
 on_line = 0
-while eof == False:
+while eof == False and stop == False:
 
     line = f.readline()
 
@@ -93,8 +96,13 @@ while eof == False:
         # add it to the batch set we will train once it fills up enough
         input_sets.append(inputs)
         output_sets.append(outputs)
+
+    # are we beyond the training example cap limit? if we are, make the command to stop
+    if on_line >= example_cap:
+        stop = True
     
-    if len(input_sets) >= training_set_batch_size or eof: # if the hopper has reached the desired batch size OR we have hit the end of file and need to perform the one last training round on what is in the hopper
+    # Is it time to save? i.e. hopper too full, end of file reached, or commanded to stop
+    if len(input_sets) >= training_set_batch_size or eof or stop: # if the hopper has reached the desired batch size OR we have hit the end of file and need to perform the one last training round on what is in the hopper
 
         # prepare for numpy
         inputs_ = numpy.array(input_sets)
