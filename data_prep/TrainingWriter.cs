@@ -23,5 +23,15 @@ namespace ChessAI
             sw.WriteLine(jo.ToString(Formatting.None));
             sw.Close();
         }
+
+        public void Add(int[] inputs, int[] outputs)
+        {
+            JObject jo = new JObject();
+            jo.Add("inputs", JArray.Parse((JsonConvert.SerializeObject(inputs))));
+            jo.Add("outputs", JArray.Parse((JsonConvert.SerializeObject(outputs))));
+            StreamWriter sw = System.IO.File.AppendText(file_path);
+            sw.WriteLine(jo.ToString(Formatting.None));
+            sw.Close();
+        }
     }
 }

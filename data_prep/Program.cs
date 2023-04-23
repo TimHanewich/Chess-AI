@@ -13,7 +13,7 @@ namespace ChessAI
         {
 
             ///// SETTINGS /////
-            int game_limit = 80000;
+            int game_limit = 1;
             int elo_floor = 1200;
             ///////////////////
 
@@ -49,6 +49,10 @@ namespace ChessAI
                             //Prepare outputs
                             int selected_neuron_index = iopt.SelectAppropriateOutputNeuronIndex(bp, move, bp.ToMove);
                             float[] outputs = iopt.PrepareOutputs(selected_neuron_index);
+
+                            //Compress
+                            int[] inputs_compressed = iopt.Compress(inputs);
+                            int[] outputs_compressed = iopt.Compress(outputs);
 
                             //Write
                             tw.Add(inputs, outputs);
