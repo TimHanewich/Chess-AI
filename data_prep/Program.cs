@@ -13,7 +13,7 @@ namespace ChessAI
         {
 
             ///// SETTINGS /////
-            int game_limit = 1;
+            int game_limit = 50000;
             int elo_floor = 1200;
             ///////////////////
 
