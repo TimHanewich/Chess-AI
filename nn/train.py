@@ -4,6 +4,7 @@ training_set_batch_size = 5
 model_output_directory = r"C:\Users\timh\Downloads\tah\chess-ai\models" # path to the parent directory you want the models to be dumped into when they are saved
 
 example_cap:int =  None # if you want to limit the number of examples the model trains on, enter it here. Set it to "None" (null) if you want it to go through all of the data in the training file
+save_model_ever_seconds:int = 60 * 5
 ####################
 
 import tensorflow as tf
@@ -11,6 +12,7 @@ import numpy
 import json
 import uuid
 import os
+import datetime
 
 # count the number of lines (training examples) in this file
 print("Counting examples in training data... ")
@@ -61,6 +63,7 @@ eof = False
 stop = False
 on_model_number:int = 1
 on_line = 0
+model_last_saved_at_utc:datetime.datetime = None
 while eof == False and stop == False:
 
     line = f.readline()
@@ -122,6 +125,21 @@ while eof == False and stop == False:
         # dump the input and output sets (hoppers)
         input_sets.clear()
         output_sets.clear()
+
+    # is it time for me to save the model again?
+    need_to_save_now:bool = False
+    if model_last_saved_at_utc == None:
+        need_to_save_now = True
+    else:
+        time_since_last_save:datetime.timedelta = datetime.datetime.utcnow() - model_last_saved_at_utc
+        if time_since_last_save.total_seconds() > save_model_ever_seconds:
+            need_to_save_now = True
+    if need_to_save_now:
+        print("It is time to save! Saving... ")
+        save_model(model, on_model_number)
+        print("Saved!")
+        on_model_number = on_model_number + 1
+        model_last_saved_at_utc = datetime.datetime.utcnow()
 
 
 # close the file
