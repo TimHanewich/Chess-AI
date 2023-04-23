@@ -102,7 +102,7 @@ while eof == False:
 
         # train
         print("Training model on " + str(len(input_sets)) + " examples... ")
-        model.fit(inputs_, outputs_, epochs=20)
+        model.fit(inputs_, outputs_, epochs=5)
         print("Training complete!")
 
 
