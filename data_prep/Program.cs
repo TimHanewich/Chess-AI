@@ -11,7 +11,32 @@ namespace ChessAI
 
         public static void Main(string[] args)
         {
-            
+            if (args.Length > 0)
+            {
+                if (args[0] == "encode" || args[0] == "decode")
+                {
+                    encodedecode(args);
+                }
+            }
+        }
+
+        //i.e. "encode rnbqkbnr/1pppppp1/8/6Pp/p7/1P6/P1PPPP1P/RNBQKBNR w KQkq h6 0 4" will produce an input array of floats
+        //i.e. "decode 645" will return the move
+        public static void encodedecode(string[] args)
+        {
+            if (args[0] == "encode")
+            {
+                InputOutputPrepTools iopt = new InputOutputPrepTools(System.IO.File.ReadAllText(@"C:\Users\timh\Downloads\tah\chess-ai\data_prep\InputOutputPrep\standard_moves.json"));
+                string fen = args[1];
+                fen = fen.Replace("\"", "");
+                BoardPosition bp = new BoardPosition(fen);
+                float[] inputs = iopt.PrepareInputs(bp);
+                Console.WriteLine(JsonConvert.SerializeObject(inputs, Formatting.None));
+            }
+            else if (args[0] == "decode")
+            {
+                Console.WriteLine("Not supported yet!");
+            }
         }
 
         public static void PrepareTrainingData()
