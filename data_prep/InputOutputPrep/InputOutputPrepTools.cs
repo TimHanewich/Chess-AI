@@ -562,21 +562,7 @@ namespace ChessAI
             //If we got this far, the move did not fit into any of the possible moves we've considered
             throw new Exception("Unable to find matching output neuron for move '" + m.FromPosition.ToString() + " to " + m.ToPosition.ToString() + "!");
         }
-    
-        public float[] PrepareOutputs(int selected_output_neuron_index)
-        {
-            List<float> ToReturn = new List<float>();
-            for (int t = 0; t < 1860; t++)
-            {
-                ToReturn.Add(0.0f);
-            }
-
-            //Set
-            ToReturn[selected_output_neuron_index] = 1.0f;
-
-            return ToReturn.ToArray();
-        }
-    
+        
         //Since both the input and output arrays are just a series of 0.0's with a few 1.0's in there, we can "compress" by assuming every part of the array will be a 0.0 and only specifying which indexes are a 1.0
         //The program that READS this data will have to know the number of values should be in each array (input vs output sequence), but that shouldn't be a problem.
         public int[] Compress(float[] arr)
