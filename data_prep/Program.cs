@@ -62,9 +62,12 @@ namespace ChessAI
                         on_game_number = on_game_number + 1;
                     }
                 }
-                catch
+                catch (Exception ex)
                 {
-                    Console.WriteLine("Critical failure on that PGN!");
+                    Console.WriteLine();
+                    Console.WriteLine("Critical failure on that PGN! Message: " + ex.Message);
+                    Console.WriteLine();
+                    Console.Write("Press enter to continue... ");
                 }
             }            
 
