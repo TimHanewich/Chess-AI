@@ -55,7 +55,7 @@ namespace ChessAI
                             int[] outputs_compressed = iopt.Compress(outputs);
 
                             //Write
-                            tw.Add(inputs, outputs);
+                            tw.Add(inputs_compressed, outputs_compressed);
                             
                             bp.ExecuteMove(move);
                         }
