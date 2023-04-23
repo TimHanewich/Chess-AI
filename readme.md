@@ -14,7 +14,15 @@ There are 64 squares on a chess board. Each square's status can be one of the fo
 - black queen
 - black king
 
-That is 13 potential states for 64 squares, so a total of 832 potential board states. Thus, the board will have **832 input neurons**.
+That is 13 potential states for 64 squares, so a total of 832 potential board states. Thus, to represent all of the pieces (or lack of pieces) on the board, 832 input neurons are needed.
+
+In total, the following must also be represented:
+- **832 neurons** - represent board state (pieces, or lack of pieces, on the board)
+- **2 neurons** - Who's turn is it to move? (white or black?)
+- **4 neurons** - Castling availability (white kingside, white queenside, black kingside, black queenside)
+- **16 neurons** - En passant target square, if available (there are only 16 squares that can ever be available for en passant target)
+
+Thus, the input structure will have the **854** neurons to represent the entire state at any given point in a game.
 
 ## Output Structure Explanation
 We will think of a move as being from *position 1* to *position 2*. In other words, we'll think of a move as being a move of a piece from a current position (square) on the board to another position (square) on the board. For example:
@@ -903,6 +911,28 @@ A total of **1,860** output neurons.
 |829|H8 is black rook|
 |830|H8 is black queen|
 |831|H8 is black king|
+|832|White to move next|
+|833|Black to move next|
+|834|White kingside castling available|
+|835|White queenside castling available|
+|836|Black kingside castling available|
+|837|Black queenside castling available|
+|838|En Passant target available on A3|
+|839|En Passant target available on B3|
+|840|En Passant target available on C3|
+|841|En Passant target available on D3|
+|842|En Passant target available on E3|
+|843|En Passant target available on F3|
+|844|En Passant target available on G3|
+|845|En Passant target available on H3|
+|846|En Passant target available on A6|
+|847|En Passant target available on B6|
+|848|En Passant target available on C6|
+|849|En Passant target available on D6|
+|850|En Passant target available on E6|
+|851|En Passant target available on F6|
+|852|En Passant target available on G6|
+|853|En Passant target available on H6|
 
 ## Output Structure
 |Neuron Index|Description|
