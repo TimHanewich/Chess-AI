@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using TimHanewich.Chess;
 using TimHanewich.Chess.PGN;
+using System.Collections.Generic;
 
 namespace ChessAI
 {
@@ -576,5 +577,19 @@ namespace ChessAI
             return ToReturn.ToArray();
         }
     
+        //Since both the input and output arrays are just a series of 0.0's with a few 1.0's in there, we can "compress" by assuming every part of the array will be a 0.0 and only specifying which indexes are a 1.0
+        //The program that READS this data will have to know the number of values should be in each array (input vs output sequence), but that shouldn't be a problem.
+        public int[] Compress(float[] arr)
+        {
+            List<int> ToReturn = new List<int>();
+            for (int t = 0; t < arr.Length; t++)
+            {
+                if (arr[t] == 1.0f)
+                {
+                    ToReturn.Add(t);
+                }
+            }
+            return ToReturn.ToArray();
+        }
     }
 }
