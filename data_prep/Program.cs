@@ -47,15 +47,13 @@ namespace ChessAI
                             float[] inputs = iopt.PrepareInputs(bp);
                             
                             //Prepare outputs
-                            int selected_neuron_index = iopt.SelectAppropriateOutputNeuronIndex(bp, move, bp.ToMove);
-                            float[] outputs = iopt.PrepareOutputs(selected_neuron_index);
+                            int selected_output_neuron_index = iopt.SelectAppropriateOutputNeuronIndex(bp, move, bp.ToMove);
 
                             //Compress
                             int[] inputs_compressed = iopt.Compress(inputs);
-                            int[] outputs_compressed = iopt.Compress(outputs);
 
                             //Write
-                            tw.Add(inputs_compressed, outputs_compressed);
+                            tw.Add(inputs_compressed, selected_output_neuron_index);
                             
                             bp.ExecuteMove(move);
                         }

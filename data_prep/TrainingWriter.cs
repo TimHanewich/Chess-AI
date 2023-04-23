@@ -14,21 +14,11 @@ namespace ChessAI
             file_path = jsonl_file_path;
         }
 
-        public void Add(float[] inputs, float[] outputs)
+        public void Add(int[] inputs, int output_neuron_index)
         {
             JObject jo = new JObject();
             jo.Add("inputs", JArray.Parse((JsonConvert.SerializeObject(inputs))));
-            jo.Add("outputs", JArray.Parse((JsonConvert.SerializeObject(outputs))));
-            StreamWriter sw = System.IO.File.AppendText(file_path);
-            sw.WriteLine(jo.ToString(Formatting.None));
-            sw.Close();
-        }
-
-        public void Add(int[] inputs, int[] outputs)
-        {
-            JObject jo = new JObject();
-            jo.Add("inputs", JArray.Parse((JsonConvert.SerializeObject(inputs))));
-            jo.Add("outputs", JArray.Parse((JsonConvert.SerializeObject(outputs))));
+            jo.Add("output", output_neuron_index);
             StreamWriter sw = System.IO.File.AppendText(file_path);
             sw.WriteLine(jo.ToString(Formatting.None));
             sw.Close();
