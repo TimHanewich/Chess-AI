@@ -1,9 +1,9 @@
 ##### SETTINGS #####
 training_data_path = r"C:\Users\timh\Downloads\tah\chess-ai\training.jsonl" # path to the .jsonl file that contains the training data
-training_set_batch_size = 500
+training_set_batch_size = 5
 model_output_directory = r"C:\Users\timh\Downloads\tah\chess-ai\models" # path to the parent directory you want the models to be dumped into when they are saved
 
-example_cap:int = 5000 # if you want to limit the number of examples the model trains on, enter it here. Set it to "None" (null) if you want it to go through all of the data in the training file
+example_cap:int = 100 # if you want to limit the number of examples the model trains on, enter it here. Set it to "None" (null) if you want it to go through all of the data in the training file
 ####################
 
 import tensorflow as tf
@@ -99,6 +99,7 @@ while eof == False and stop == False:
 
     # are we beyond the training example cap limit? if we are, make the command to stop
     if on_line >= example_cap:
+        print("Training example cap of " + str(example_cap) + " reached!")
         stop = True
     
     # Is it time to save? i.e. hopper too full, end of file reached, or commanded to stop
