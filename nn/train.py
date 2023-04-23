@@ -37,6 +37,7 @@ def save_model(model:tf.keras.Sequential, model_number:int = None) -> None:
     g = uuid.uuid4()
     s:str = str(g)
     s = s.replace("-", "")
+    s = s[:5]
 
     path:str = model_output_directory + "\\model" + num_part + "-" + s + "\\"
     os.mkdir(path)
