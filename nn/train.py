@@ -105,6 +105,10 @@ while eof == False:
         model.fit(inputs_, outputs_, epochs=5)
         print("Training complete!")
 
+        # dump the input and output sets (hoppers)
+        input_sets.clear()
+        output_sets.clear()
+
 
 # close the file
 f.close()
