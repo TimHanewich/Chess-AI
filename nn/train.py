@@ -3,7 +3,7 @@ training_data_path = r"C:\Users\timh\Downloads\tah\chess-ai\training.jsonl" # pa
 training_set_batch_size = 5
 model_output_directory = r"C:\Users\timh\Downloads\tah\chess-ai\models" # path to the parent directory you want the models to be dumped into when they are saved
 
-example_cap:int = 100 # if you want to limit the number of examples the model trains on, enter it here. Set it to "None" (null) if you want it to go through all of the data in the training file
+example_cap:int =  None # if you want to limit the number of examples the model trains on, enter it here. Set it to "None" (null) if you want it to go through all of the data in the training file
 ####################
 
 import tensorflow as tf
@@ -71,7 +71,11 @@ while eof == False and stop == False:
 
         # percent complete calculation
         on_line = on_line + 1
-        percent_complete:float = on_line / total_example_count
+        if example_cap != None:
+            to_do = example_cap
+        else:
+            to_do = total_example_count
+        percent_complete:float = on_line / to_do
         percent_complete_str:str = f'{percent_complete:.3%}'
         print("Preparing example " + format(on_line, ",d") + " (" + percent_complete_str + ")... ")
 
@@ -98,9 +102,10 @@ while eof == False and stop == False:
         output_sets.append(outputs)
 
     # are we beyond the training example cap limit? if we are, make the command to stop
-    if on_line >= example_cap:
-        print("Training example cap of " + str(example_cap) + " reached!")
-        stop = True
+    if example_cap != None:
+        if on_line >= example_cap:
+            print("Training example cap of " + str(example_cap) + " reached!")
+            stop = True
     
     # Is it time to save? i.e. hopper too full, end of file reached, or commanded to stop
     if len(input_sets) >= training_set_batch_size or eof or stop: # if the hopper has reached the desired batch size OR we have hit the end of file and need to perform the one last training round on what is in the hopper
