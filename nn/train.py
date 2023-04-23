@@ -63,7 +63,7 @@ eof = False
 stop = False
 on_model_number:int = 1
 on_line = 0
-model_last_saved_at_utc:datetime.datetime = None
+model_last_saved_at_utc:datetime.datetime = datetime.datetime.utcnow()
 while eof == False and stop == False:
 
     line = f.readline()
@@ -127,14 +127,8 @@ while eof == False and stop == False:
         output_sets.clear()
 
     # is it time for me to save the model again?
-    need_to_save_now:bool = False
-    if model_last_saved_at_utc == None:
-        need_to_save_now = True
-    else:
-        time_since_last_save:datetime.timedelta = datetime.datetime.utcnow() - model_last_saved_at_utc
-        if time_since_last_save.total_seconds() > save_model_ever_seconds:
-            need_to_save_now = True
-    if need_to_save_now:
+    time_since_last_save:datetime.timedelta = datetime.datetime.utcnow() - model_last_saved_at_utc
+    if time_since_last_save.total_seconds() > save_model_ever_seconds:
         print("It is time to save! Saving... ")
         save_model(model, on_model_number)
         print("Saved!")
