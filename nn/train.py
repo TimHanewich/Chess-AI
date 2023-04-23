@@ -44,13 +44,10 @@ def save_model(model:tf.keras.Sequential, model_number:int = None) -> None:
 
 model = tf.keras.Sequential()
 model.add(tf.keras.layers.Dense(854)) # innputs
-model.add(tf.keras.layers.Dense(8000, "relu"))
-model.add(tf.keras.layers.Dense(10000, "relu"))
-model.add(tf.keras.layers.Dense(12000, "relu"))
-model.add(tf.keras.layers.Dense(10000, "relu"))
-model.add(tf.keras.layers.Dense(8500, "relu"))
+model.add(tf.keras.layers.Dense(3000, "relu"))
 model.add(tf.keras.layers.Dense(5000, "relu"))
-model.add(tf.keras.layers.Dense(3500, "relu"))
+model.add(tf.keras.layers.Dense(4500, "relu"))
+model.add(tf.keras.layers.Dense(3000, "relu"))
 model.add(tf.keras.layers.Dense(1860)) # outputs
 model.compile("adam", "mean_squared_error")
 
