@@ -18,6 +18,10 @@ namespace ChessAI
                     encodedecode(args);
                 }
             }
+            else
+            {
+                PrepareTrainingData();
+            }
         }
 
         //i.e. "encode rnbqkbnr/1pppppp1/8/6Pp/p7/1P6/P1PPPP1P/RNBQKBNR w KQkq h6 0 4" will produce an input array of floats
