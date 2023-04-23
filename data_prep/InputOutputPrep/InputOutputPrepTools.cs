@@ -26,7 +26,7 @@ namespace ChessAI
         public float[] PrepareInputs(BoardPosition bp)
         {
 
-            //Set up with 0's
+            //Set up with the first 832 0's that will represent the board state (pieces on the board)
             List<float> ToReturn = new List<float>();
             for (int t = 0; t < 832; t++)
             {
@@ -102,6 +102,111 @@ namespace ChessAI
                 on_position_index = on_position_index + 1;
             }
         
+            //Who is to move?
+            if (bp.ToMove == Color.White)
+            {
+                ToReturn.Add(1.0f);
+                ToReturn.Add(0.0f);
+            }
+            else if (bp.ToMove == Color.Black)
+            {
+                ToReturn.Add(0.0f);
+                ToReturn.Add(1.0f);
+            }
+
+            //Castling availability
+            if (bp.WhiteKingSideCastlingAvailable)
+            {
+                ToReturn.Add(1.0f);
+            }
+            else
+            {
+                ToReturn.Add(0.0f);
+            }
+            if (bp.WhiteQueenSideCastlingAvailable)
+            {
+                ToReturn.Add(1.0f);
+            }
+            else
+            {
+                ToReturn.Add(0.0f);
+            }
+            if (bp.BlackKingSideCastlingAvailable)
+            {
+                ToReturn.Add(1.0f);
+            }
+            else
+            {
+                ToReturn.Add(0.0f);
+            }
+            if (bp.BlackQueenSideCastlingAvailable)
+            {
+                ToReturn.Add(1.0f);
+            }
+            else
+            {
+                ToReturn.Add(0.0f);
+            }
+
+            //En passant
+            float[] en_passant_portion = new float[]{0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f};
+            if (bp.EnPassantTarget.HasValue)
+            {
+                switch (bp.EnPassantTarget.Value)
+                {
+                    case Position.A3:
+                        en_passant_portion[0] = 1.0f;
+                        break;
+                    case Position.B3:
+                        en_passant_portion[1] = 1.0f;
+                        break;
+                    case Position.C3:
+                        en_passant_portion[2] = 1.0f;
+                        break;
+                    case Position.D3:
+                        en_passant_portion[3] = 1.0f;
+                        break;
+                    case Position.E3:
+                        en_passant_portion[4] = 1.0f;
+                        break;
+                    case Position.F3:
+                        en_passant_portion[5] = 1.0f;
+                        break;
+                    case Position.G3:
+                        en_passant_portion[6] = 1.0f;
+                        break;
+                    case Position.H3:
+                        en_passant_portion[7] = 1.0f;
+                        break;
+                    case Position.A6:
+                        en_passant_portion[8] = 1.0f;
+                        break;
+                    case Position.B6:
+                        en_passant_portion[9] = 1.0f;
+                        break;
+                    case Position.C6:
+                        en_passant_portion[10] = 1.0f;
+                        break;
+                    case Position.D6:
+                        en_passant_portion[11] = 1.0f;
+                        break;
+                    case Position.E6:
+                        en_passant_portion[12] = 1.0f;
+                        break;
+                    case Position.F6:
+                        en_passant_portion[13] = 1.0f;
+                        break;
+                    case Position.G6:
+                        en_passant_portion[14] = 1.0f;
+                        break;
+                    case Position.H6:
+                        en_passant_portion[15] = 1.0f;
+                        break;
+                }
+            }
+            ToReturn.AddRange(en_passant_portion);
+
+
             return ToReturn.ToArray();
         }
 
