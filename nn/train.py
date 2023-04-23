@@ -1,7 +1,7 @@
 ##### SETTINGS #####
-training_data_path = r"" # path to the .jsonl file that contains the training data
+training_data_path = r"C:\Users\timh\Downloads\tah\chess-ai\training.jsonl" # path to the .jsonl file that contains the training data
 training_set_batch_size = 100
-model_output_directory = r"" # path to the parent directory you want the models to be dumped into when they are saved
+model_output_directory = r"C:\Users\timh\Downloads\tah\chess-ai\models" # path to the parent directory you want the models to be dumped into when they are saved
 ####################
 
 import tensorflow as tf
@@ -55,6 +55,7 @@ model.add(tf.keras.layers.Dense(1860)) # outputs
 model.compile("adam", "mean_squared_error")
 
 # TRAIN!
+f.seek(0) # go back to the start of the file again
 input_sets = []
 output_sets = []
 eof = False
