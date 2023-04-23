@@ -11,7 +11,11 @@ namespace ChessAI
 
         public static void Main(string[] args)
         {
+            
+        }
 
+        public static void PrepareTrainingData()
+        {
             ///// SETTINGS /////
             int game_limit = 50000;
             int elo_floor = 1200;
@@ -69,12 +73,8 @@ namespace ChessAI
                     Console.WriteLine();
                     Console.Write("Press enter to continue... ");
                 }
-            }            
-
-            
-
+            }           
         }
-
         
     
     }
