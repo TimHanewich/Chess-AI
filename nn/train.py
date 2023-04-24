@@ -4,7 +4,7 @@ training_set_batch_size = 500
 model_output_directory = r"C:\Users\timh\Downloads\tah\chess-ai\models" # path to the parent directory you want the models to be dumped into when they are saved
 
 example_cap:int =  None # if you want to limit the number of examples the model trains on, enter it here. Set it to "None" (null) if you want it to go through all of the data in the training file
-save_model_ever_seconds:int = 60 * 5
+save_model_ever_seconds:int = 60 * 120
 ####################
 
 import tensorflow as tf
