@@ -1,4 +1,4 @@
-model_dir = r"C:\Users\timh\Downloads\tah\chess-ai\models\model7-923d0f8856dc4d75ada0670c15060729"
+model_dir = r"C:\Users\timh\Downloads\tah\chess-ai\models\model25-ede7c"
 
 
 import tensorflow as tf
