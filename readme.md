@@ -1,3 +1,6 @@
+# Chess Neural Network
+Training a neural network to play chess using millions of games from Lichess's database. This was highly unsuccessful. After training the neural network on 3,000,000+ games for 48+ hours straight, the model did not function whatsoever. It kept selecting invalid moves. I'm not sure if this a case of the underlying design being invalid, an error being present somewhere (i.e. in encoding/decoding), or an issue with the data.
+
 ## Input Structure Explanation
 There are 64 squares on a chess board. Each square's status can be one of the following:
 - empty
